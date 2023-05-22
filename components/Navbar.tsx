@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   FaInfoCircle,
   FaTruck,
@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const router = useRouter()
 
   const toggleMenu = () => {
@@ -29,16 +30,48 @@ const Navbar = () => {
     setIsMenuOpen(false)
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <>
-      <div className="bg-gray-600 text-sm text-white flex items-center justify-start p-2 pl-8">
-        <MdMail className="mr-1" size="18" />
-        <p className="mr-4">iletisim@sosyalzone.com</p>
+      <div
+        className={`bg-gray-600 text-sm text-white flex items-center justify-start p-3 pl-5 transition-all duration-500 ${
+          isScrolled ? 'fixed opacity-0' : ''
+        }`}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: isScrolled ? 1 : 0, y: isScrolled ? 0 : -50 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
+        <MdMail className="mr-1" size={18} />
+        <p className="mr-4">iletisim@1948.com</p>
         <div className="border-r border-white h-4 mx-4"></div>
-        <MdLocalPhone className="mr-1" size="18" />
+        <MdLocalPhone className="mr-1" size={18} />
         <p>+905527920260</p>
       </div>
-      <header className="shadow-lg w-full mx-auto p-4 bg-white">
+
+      <header
+        className={`shadow-lg w-full mx-auto p-4 bg-white ${
+          isScrolled ? 'fixed top-0 left-0 right-0' : ''
+        }`}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
         <nav className="container mx-auto flex items-center justify-between py-2">
           <div className="logo">
             <Link legacyBehavior href="/">
@@ -53,7 +86,7 @@ const Navbar = () => {
             {menuItems.map((menuItem) => (
               <Link legacyBehavior href={menuItem.route} key={menuItem.label}>
                 <a
-                  className={`font-roboto max-w-sm text-[15.9px] font-bold leading-tight relative inline-block hover:text-red-600 py-2 ${
+                  className={`font-roboto max-w-sm text-[16px] font-bold leading-tight relative inline-block hover:text-red-600 py-2 ${
                     router.pathname === menuItem.route ? 'text-red-600' : ''
                   } link link-underline link-underline-black text-black smooth-text`}
                   onClick={closeMenu}
@@ -71,7 +104,7 @@ const Navbar = () => {
               rel="noreferrer"
               className="transform transition-all duration-500 ease-in-out hover:scale-125"
             >
-              <FaFacebookF color="#3b5998" size="24" />
+              <FaFacebookF color="#3b5998" size={24} />
             </a>
             <a
               href="https://www.instagram.com"
@@ -79,7 +112,7 @@ const Navbar = () => {
               rel="noreferrer"
               className="transform transition-all duration-500 ease-in-out hover:scale-125"
             >
-              <FaInstagram color="#E1306C" size="24" />
+              <FaInstagram color="#E1306C" size={24} />
             </a>
             <a
               href="https://www.twitter.com"
@@ -87,7 +120,7 @@ const Navbar = () => {
               rel="noreferrer"
               className="transform transition-all duration-500 ease-in-out hover:scale-125"
             >
-              <FaTwitter color="#1DA1F2" size="24" />
+              <FaTwitter color="#1DA1F2" size={24} />
             </a>
             <div className="relative">
               <button
@@ -95,7 +128,7 @@ const Navbar = () => {
                 onClick={toggleMenu}
                 aria-label="Toggle Menu"
               >
-                <FaBars color="#000" size="24" />
+                <FaBars color="#000" size={24} />
               </button>
               <button
                 className={`absolute top-0 right-0 transform transition-all duration-500 ease-in-out ${
@@ -107,7 +140,7 @@ const Navbar = () => {
                 aria-label="Close Menu"
                 style={{ zIndex: 999 }}
               >
-                <FaTimes color="#000" size="24" />
+                <FaTimes color="#000" size={24} />
               </button>
             </div>
           </div>
@@ -136,7 +169,7 @@ const Navbar = () => {
                     >
                       <Link legacyBehavior href={menuItem.route}>
                         <a
-                          className={`block font-bold text-lg text-center ${
+                          className={`block font-bold text-xl p-2 mb-2 mt-2 text-center ${
                             router.pathname === menuItem.route
                               ? 'text-red-600'
                               : ''
@@ -144,6 +177,27 @@ const Navbar = () => {
                           onClick={closeMenu}
                         >
                           {menuItem.label}
+                          {menuItem.route === '#hizmetler' && (
+                            <FaTruck className="inline-block ml-2" size={18} />
+                          )}
+                          {menuItem.route === '#hakkimizda' && (
+                            <FaInfoCircle
+                              className="inline-block ml-2"
+                              size={18}
+                            />
+                          )}
+                          {menuItem.route === '#iletisim' && (
+                            <FaPhone className="inline-block ml-2" size={18} />
+                          )}
+                          {menuItem.route === '#paketler' && (
+                            <FaBox className="inline-block ml-2" size={18} />
+                          )}
+                          {menuItem.route === '#diger-hizmetlerimiz' && (
+                            <FaBuilding
+                              className="inline-block ml-2"
+                              size={18}
+                            />
+                          )}
                         </a>
                       </Link>
                     </li>
@@ -164,14 +218,14 @@ const menuItems = [
     label: 'Hakkımızda',
   },
   {
-    route: '#sevisler',
-    label: 'Sevisler',
+    route: '#hizmetler',
+    label: 'Hizmetler',
   },
   { route: '#iletisim', label: 'İletişim' },
   { route: '#paketler', label: 'Paketler' },
   {
     route: '#diger-hizmetlerimiz',
-    label: 'Diğer Hizmetlerimiz',
+    label: 'Diğer Hizmetler',
   },
 ]
 
