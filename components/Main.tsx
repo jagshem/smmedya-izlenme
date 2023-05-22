@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
+import Image from 'next/image'
 
 const MainScreen = () => {
   return (
@@ -39,7 +40,7 @@ const MainScreen = () => {
           </div>
           {/* Right Image */}
           <div className="flex justify-center items-center order-1 lg:order-2">
-            <img
+            <Image
               src="/images/youtube.png"
               alt="Sağ Taraf Icon"
               className="max-w-[400px] lg:h-auto"
