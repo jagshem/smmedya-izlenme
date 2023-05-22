@@ -48,7 +48,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div
+      <motion.div
         className={`bg-gray-600 text-sm text-white flex items-center justify-start p-3 pl-5 transition-all duration-500 ${
           isScrolled ? 'fixed opacity-0' : ''
         }`}
@@ -61,16 +61,12 @@ const Navbar = () => {
         <div className="border-r border-white h-4 mx-4"></div>
         <MdLocalPhone className="mr-1" size={18} />
         <p>+905527920260</p>
-      </div>
+      </motion.div>
 
       <header
         className={`shadow-lg w-full mx-auto p-4 bg-white ${
           isScrolled ? 'fixed top-0 left-0 right-0' : ''
         }`}
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -50 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
       >
         <nav className="container mx-auto flex items-center justify-between py-2">
           <div className="logo">
