@@ -1,6 +1,5 @@
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
-import Image from 'next/image'
 
 const MainScreen = () => {
   return (
@@ -19,7 +18,7 @@ const MainScreen = () => {
             </div>
             <div className="mt-8 bg-gradient-to-br from-red-500 to-rose-600 rounded-3xl p-4 text-white text-center">
               <p className="lg:text-lg text-base font-semibold leading-normal">
-                Türkiye'nin en kapsamlı YouTube Reklam Ajansı olarak 2007
+                Türkiye&aposnin en kapsamlı YouTube Reklam Ajansı olarak 2007
                 yılından bu yana YouTube hizmeti vermekte, yüzlerce sanatçı,
                 prodüksiyon şirketi ve reklam ajansları ile sorunsuz çalışmalara
                 imza atmış bulunmaktayız.
@@ -40,7 +39,7 @@ const MainScreen = () => {
           </div>
           {/* Right Image */}
           <div className="flex justify-center items-center order-1 lg:order-2">
-            <Image
+            <img
               src="/images/youtube.png"
               alt="Sağ Taraf Icon"
               className="max-w-[400px] lg:h-auto"
